@@ -45,10 +45,10 @@ test_data = boolq.BoolQDataset(test_df, tokenizer)
 ta = TrainingArguments(
     output_dir = './models/',
     do_train = True,
-    do_eval = True
+    do_eval = True,
     evaluation_strategy = "epoch",
     per_device_train_batch_size=8,
-    num_train_epochs=3,
+    num_train_epochs=0.1,
     load_best_model_at_end=True,
     metric_for_best_model=finetuning_utils.compute_metrics
 )
@@ -71,7 +71,7 @@ trainer = Trainer(model_init = finetuning_utils.model_init,
                   compute_metrics = finetuning_utils.compute_metrics)
 trainer.train()
 best_run = trainer.hyperparameter_search(hp_space = lambda _: {"learning_rate":tune.uniform(1e-5, 5e-5)},
-                                         search_alg = BayesOptSearch(metric = 'mean_loss',mode = 'min'), 
+                                        search_alg = BayesOptSearch(metric = 'mean_loss',mode = 'min'), 
                                          n_trials = 5)
 trainer.save_model('RoBERTa')
 best_run
