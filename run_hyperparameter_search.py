@@ -49,8 +49,7 @@ ta = TrainingArguments(
     evaluation_strategy = "epoch",
     per_device_train_batch_size=8,
     num_train_epochs=0.1,
-    load_best_model_at_end=True,
-    metric_for_best_model=finetuning_utils.compute_metrics
+    load_best_model_at_end=True
 )
 
 ## TODO: Initialize a transformers.Trainer object and run a Bayesian
