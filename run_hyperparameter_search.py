@@ -69,7 +69,6 @@ trainer = Trainer(model_init = finetuning_utils.model_init,
                   train_dataset = train_data, 
                   eval_dataset = val_data,
                   compute_metrics = finetuning_utils.compute_metrics)
-trainer.train()
 best_run = trainer.hyperparameter_search(hp_space = lambda _: {"learning_rate":tune.uniform(1e-5, 5e-5)},
                                         search_alg = BayesOptSearch(metric = 'mean_loss',mode = 'min'), 
                                          n_trials = 5)
