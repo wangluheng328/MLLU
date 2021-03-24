@@ -16,6 +16,7 @@ def compute_metrics(eval_pred):
     pre = s.precision_score(labels,preds,average = 'binary')
     rec = s.recall_score(labels,preds,average = 'binary')
     x = s.precision_recall_fscore_support(labels,preds,average = 'macro')
+    print(x)
     return {'accuracy':acc,'f1':x[2],'precision':x[0],'recall':x[1]}
 
 def model_init():
