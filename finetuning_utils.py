@@ -11,7 +11,7 @@ def compute_metrics(eval_pred):
 
     ## TODO: Return a dictionary containing the accuracy, f1, precision, and recall scores.
     ## You may use sklearn's precision_recall_fscore_support and accuracy_score methods.
-    acc = s.accuracy_score(labels,preds)
+    acc = s.accuracy_score(labels,preds,normalize = True)
     f1 = s.f1_score(labels,preds,average = 'binary')
     pre = s.precision_score(labels,preds,average = 'binary')
     rec = s.recall_score(labels,preds,average = 'binary')
