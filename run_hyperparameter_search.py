@@ -70,7 +70,7 @@ trainer = Trainer(model_init = finetuning_utils.model_init,
                   eval_dataset = val_data,
                   compute_metrics = finetuning_utils.compute_metrics)
 best_run = trainer.hyperparameter_search(hp_space = lambda _: {"learning_rate":tune.uniform(1e-5, 5e-5)},
-                                        search_alg = BayesOptSearch(metric = 'mean_loss',mode = 'min'), 
+                                        search_alg = BayesOptSearch(metric = 'eval_loss',mode = 'min'), 
                                          n_trials = 5)
 trainer.save_model('RoBERTa')
 best_run
