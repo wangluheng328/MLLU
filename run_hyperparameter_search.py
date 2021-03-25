@@ -48,7 +48,7 @@ ta = TrainingArguments(
     do_eval = True,
     evaluation_strategy = "epoch",
     per_device_train_batch_size=8,
-    num_train_epochs=0.1,
+    num_train_epochs=3,
     load_best_model_at_end=True
 )
 
@@ -70,10 +70,14 @@ trainer = Trainer(model_init = finetuning_utils.model_init,
                   compute_metrics = finetuning_utils.compute_metrics)
 best_run = trainer.hyperparameter_search(hp_space = lambda _: {"learning_rate":tune.uniform(1e-5, 5e-5)},
                                         search_alg = BayesOptSearch(metric = 'eval_loss',mode = 'min'), 
+                                         compute_objective = finetuning_utils.compute_objective_hyper,
                                         backend = 'ray',
                                          n_trials = 5)
-trainer.save_model('RoBERTa')
-best_run
+trainer.train()
+trainer.save_model('HW3RoBERTa')
+print('hahaha here it is')
+
+print(best_run)
 
 
 

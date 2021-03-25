@@ -15,7 +15,7 @@ def compute_metrics(eval_pred):
     f1 = s.f1_score(labels,preds,average = 'binary')
     pre = s.precision_score(labels,preds,average = 'binary')
     rec = s.recall_score(labels,preds,average = 'binary')
-    x = s.precision_recall_fscore_support(labels,preds,average = 'macro')
+    x = s.precision_recall_fscore_support(labels,preds,average = 'binary',pos_label=1)
     print(x)
     return {'accuracy':acc,'f1':x[2],'precision':x[0],'recall':x[1]}
 
@@ -26,3 +26,6 @@ def model_init():
     model = RobertaForSequenceClassification.from_pretrained('roberta-base')
     model = model.to('cuda')
     return model
+
+def compute_objective_hyper(eval_pred):
+    return eval_pred['eval_loss']
